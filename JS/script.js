@@ -9,7 +9,7 @@ async function fetchDataAndDisplayNews() {
 
     // Check if data.articles exists and is not empty
     if (!data.articles || data.articles.length === 0) {
-      console.error('No articles found');
+      console.error('No news found');
       return;
     }
 
@@ -19,9 +19,9 @@ async function fetchDataAndDisplayNews() {
       const newsElement = document.createElement('div');
       newsElement.classList.add('article');
       newsElement.innerHTML = `
-        <h2>${article.title}</h2>
-        <p>${article.description}</p>
-        <a href="${article.url}" target="_blank">Read more</a>
+        <h2>${news.title}</h2>
+        <p>${news.description}</p>
+        <a href="${news.url}" target="_blank">Read more</a>
       `;
       newsContainer.appendChild(newsElement);
     });
