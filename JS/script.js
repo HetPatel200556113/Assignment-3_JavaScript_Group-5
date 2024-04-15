@@ -6,7 +6,7 @@ async function fetchDataAndDisplayNews() {
     // Fetch news data
     const response = await fetch(apiUrl);
     if (!response.ok) {
-      throw new Error('Failed to fetch news data');
+      throw new Error(`Failed to fetch news data: ${response.status}`);
     }
     const data = await response.json();
 
