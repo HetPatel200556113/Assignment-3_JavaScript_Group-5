@@ -8,16 +8,16 @@ async function fetchDataAndDisplayNews() {
     const data = await response.json();
 
     // Check if data.articles exists and is not empty
-    if (!data.articles || data.articles.length === 0) {
+    if (!data.news || data.news.length === 0) {
       console.error('No news found');
       return;
     }
 
     // Display news
     const newsContainer = document.getElementById('news');
-    data.articles.forEach(article => {
+    data.news.forEach(article => {
       const newsElement = document.createElement('div');
-      newsElement.classList.add('article');
+      newsElement.classList.add('news');
       newsElement.innerHTML = `
         <h2>${news.title}</h2>
         <p>${news.description}</p>
