@@ -2,7 +2,7 @@ const apiKey = 'c8ea8fa343e34258988e3fb896239e1f';
 
 async function fetchNewsData() {
   try {
-    const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
+    const apiUrl = `const apiUrl = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=c8ea8fa343e34258988e3fb896239e1f`;
     const response = await fetch(apiUrl);
     const data = await response.json();
     return data.articles;
