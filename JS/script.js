@@ -5,10 +5,12 @@ async function fetchDataAndDisplayNews() {
 
     // Fetch news data
     const response = await fetch(apiUrl);
-    const data = await response.json();
 
-    // Log data for debugging
-    console.log('NewsAPI Response:', data);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
 
     if (!data.articles || !Array.isArray(data.articles)) {
       throw new Error('Invalid data format: articles array not found in response');
