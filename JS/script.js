@@ -7,6 +7,12 @@ async function fetchDataAndDisplayNews() {
     const response = await fetch(apiUrl);
     const data = await response.json();
 
+    // Check if data.articles exists and is not empty
+    if (!data.articles || data.articles.length === 0) {
+      console.error('No articles found');
+      return;
+    }
+
     // Display news
     const newsContainer = document.getElementById('news');
     data.articles.forEach(article => {
