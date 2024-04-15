@@ -8,30 +8,26 @@ async function fetchDataAndDisplayNews() {
     const data = await response.json();
 
     // Check if data.articles exists and is not empty
-    if (!data.news || data.news.length === 0) {
+    if (!data.articles || data.articles.length === 0) {
       console.error('No news found');
       return;
     }
 
     // Display news
     const newsContainer = document.getElementById('news');
-    data.news.forEach(article => {
+    data.articles.forEach(article => {
       const newsElement = document.createElement('div');
       newsElement.classList.add('news');
       newsElement.innerHTML = `
-        <h2>${news.title}</h2>
-        <p>${news.description}</p>
-        <a href="${news.url}" target="_blank">Read more</a>
+        <h2>${article.title}</h2>
+        <p>${article.description}</p>
+        <a href="${article.url}" target="_blank">Read more</a>
       `;
       newsContainer.appendChild(newsElement);
     });
 
-    const news = await fetchNewsReport();
-    if (!news) {
-      // Handle the error gracefully, e.g., display a message to the user
-      newsReportElement.innerHTML = '<p>Error fetching news report. Please try again later.</p>';
-      return;
-    }
+    // Add code for fetching and handling news report here
+
   } catch (error) {
     console.error('Error:', error);
   }
