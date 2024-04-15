@@ -17,9 +17,9 @@ async function fetchDataAndDisplayNews() {
 
     // Display news
     const newsContainer = document.getElementById('news');
-    data.news.forEach(article => {
+    data.articles.forEach(article => {
       const newsElement = document.createElement('div');
-      newsElement.classList.add('article');
+      newsElement.classList.add('news-item'); // Updated class name
       newsElement.innerHTML = `
         <h2>${article.title}</h2>
         <p>${article.description}</p>
