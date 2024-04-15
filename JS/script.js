@@ -20,7 +20,6 @@ async function fetchDataAndDisplayNews() {
       newsContainer.appendChild(newsElement);
     });
 
-    // Fetch race schedule
     const news = await fetchNewsReport();
     if (!news) {
       // Handle the error gracefully, e.g., display a message to the user
