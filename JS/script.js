@@ -2,7 +2,7 @@ const apiKey = 'c8ea8fa343e34258988e3fb896239e1f';
 
 async function fetchNewsData() {
   try {
-    const apiUrl = `const apiUrl = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
+    const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
     return data.articles;
@@ -21,13 +21,13 @@ async function displayNews() {
     return;
   }
 
-  news.forEach(news => {
+  news.forEach(article => { // Changed from `news` to `article`
     const newsElement = document.createElement('div');
     newsElement.classList.add('article');
     newsElement.innerHTML = `
-      <h2>${news.title}</h2>
-      <p>${news.description}</p>
-      <a href="${news.url}" target="_blank">Read more</a>
+      <h2>${article.title}</h2>
+      <p>${article.description}</p>
+      <a href="${article.url}" target="_blank">Read more</a>
     `;
     newsContainer.appendChild(newsElement);
   });
