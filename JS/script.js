@@ -1,44 +1,23 @@
-async function fetchDataAndDisplayNews() {
+async function fetchDataAndDisplayNews(retries = 3, delay = 1000) {
   try {
     const apiKey = 'c8ea8fa343e34258988e3fb896239e1f';
     const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
 
-    // Fetch news data
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      if (response.status === 426) {
+    // Retry logic
+    for (let i = 0; i < retries; i++) {
+      const response = await fetch(apiUrl);
+      if (response.ok) {
+        const data = await response.json();
+        // Process data and display news
+        return data;
+      } else if (response.status === 426) {
         throw new Error('The server requires an upgrade to a different protocol. Please try again later.');
       } else {
-        throw new Error(`Failed to fetch news data: ${response.statusText}`);
+        console.error(`Failed to fetch news data: ${response.statusText}`);
       }
+      await new Promise(resolve => setTimeout(resolve, delay)); // Wait before retrying
     }
-    const data = await response.json();
-
-    // Check if data.articles exists and is not empty
-    if (!data.articles || data.articles.length === 0) {
-      throw new Error('No news articles found');
-    }
-
-    // Display news
-    const newsContainer = document.getElementById('news');
-    data.articles.forEach(article => {
-      const newsElement = document.createElement('div');
-      newsElement.classList.add('news-item'); // Updated class name
-      newsElement.innerHTML = `
-        <h2>${article.title}</h2>
-        <p>${article.description}</p>
-        <a href="${article.url}" target="_blank">Read more</a>
-      `;
-      newsContainer.appendChild(newsElement);
-    });
-
-    // Fetching race schedule
-    const raceSchedule = await fetchRaceSchedule();
-    if (!raceSchedule) {
-      throw new Error('Failed to fetch race schedule');
-    }
-    // Process race schedule if needed
-
+    throw new Error('Failed to fetch news data after multiple attempts.');
   } catch (error) {
     console.error('Error:', error);
     // Handle errors gracefully, e.g., display a message to the user
@@ -47,18 +26,3 @@ async function fetchDataAndDisplayNews() {
 
 // Call the function to fetch data and display news
 fetchDataAndDisplayNews();
-
-// Function to fetch race schedule (assuming it's defined elsewhere)
-async function fetchRaceSchedule() {
-  try {
-    const response = await fetch('https://example.com/race-schedule'); // Replace with actual API URL
-    if (!response.ok) {
-      throw new Error('Failed to fetch race schedule');
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching race schedule:', error);
-    return null;
-  }
-}
