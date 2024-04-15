@@ -6,7 +6,11 @@ async function fetchDataAndDisplayNews() {
     // Fetch news data
     const response = await fetch(apiUrl);
     if (!response.ok) {
-      throw new Error(`Failed to fetch news data: ${response.status}`);
+      if (response.status === 426) {
+        throw new Error('The server requires an upgrade to a different protocol. Please try again later.');
+      } else {
+        throw new Error(`Failed to fetch news data: ${response.statusText}`);
+      }
     }
     const data = await response.json();
 
