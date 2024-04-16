@@ -18,7 +18,7 @@ async function fetchDataAndDisplayNews() {
 
     // Display news
     const newsContainer = document.getElementById('news');
-    data.news.forEach(article => {
+    data.articles.forEach(article => {
       const newsElement = document.createElement('div');
       newsElement.classList.add('article');
       newsElement.innerHTML = `
@@ -28,16 +28,10 @@ async function fetchDataAndDisplayNews() {
       `;
       newsContainer.appendChild(newsElement);
     });
-
-    // Fetch race schedule
-    const news = await fetchNewsReport();
-    if (!news) {
-      // Handle the error gracefully, e.g., display a message to the user
-      newsReportElement.innerHTML = '<p>Error fetching news report. Please try again later.</p>';
-      return;
-    }
   } catch (error) {
     console.error('Error:', error);
+    const newsContainer = document.getElementById('news');
+    newsContainer.innerHTML = '<p>Error fetching news. Please try again later.</p>';
   }
 }
 
