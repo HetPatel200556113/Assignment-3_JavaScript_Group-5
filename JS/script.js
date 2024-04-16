@@ -1,7 +1,7 @@
 async function fetchDataAndDisplayNews() {
   try {
     const apiKey = 'c8ea8fa343e34258988e3fb896239e1f';
-    const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
+    const apiUrl = `https://newsapi.org/v2/everything?q=keyword&apiKey=c8ea8fa343e34258988e3fb896239e1f`;
 
     // Fetch news data
     const response = await fetch(apiUrl);
