@@ -5,33 +5,30 @@ async function fetchDataAndDisplayNews() {
 
     // Fetch news data
     const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
     const data = await response.json();
-
-    if (!data.news || !Array.isArray(data.news)) {
-      throw new Error('Invalid data format: articles array not found in response');
-    }
 
     // Display news
     const newsContainer = document.getElementById('news');
-    data.articles.forEach(news => {
+    data.articles.forEach(article => {
       const newsElement = document.createElement('div');
       newsElement.classList.add('article');
       newsElement.innerHTML = `
-        <h2>${news.title}</h2>
-        <p>${news.description}</p>
-        <a href="${news.url}" target="_blank">Read more</a>
+        <h2>${article.title}</h2>
+        <p>${article.description}</p>
+        <a href="${article.url}" target="_blank">Read more</a>
       `;
       newsContainer.appendChild(newsElement);
     });
+
+    // Fetch race schedule
+    const news = await fetchNewsReport();
+    if (!news) {
+      // Handle the error gracefully, e.g., display a message to the user
+      newsReportElement.innerHTML = '<p>Error fetching news report. Please try again later.</p>';
+      return;
+    }
   } catch (error) {
     console.error('Error:', error);
-    const newsContainer = document.getElementById('news');
-    newsContainer.innerHTML = '<p>Error fetching news. Please try again later.</p>';
   }
 }
 
